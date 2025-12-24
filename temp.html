@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+    <title>Feliz Ano Novo, My Love!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden; 
+            font-family: 'Dancing Script', cursive;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Fireworks layer behind everything */
+        #fireworksCanvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+
+        #countdown-container {
+            position: relative;
+            z-index: 5;
+            font-size: 2.5em;
+            text-shadow: 0 0 20px #ff0;
+            color: #ffd700;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #countdown {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        #reveal-message {
+            display: none;
+            position: relative;
+            z-index: 20;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 2s ease-out, transform 2s ease-out, filter 1s, scale 1s;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        #reveal-message.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+            filter: blur(20px);
+            scale: 0.8;
+            pointer-events: none;
+        }
+
+        #reveal-message h1 { font-size: 3em; color: #ff4d4d; }
+        #reveal-message p { font-size: 1.3em; line-height: 1.6; text-align: center; }
+
+        #midnight-kiss-btn {
+            background-color: #e91e63;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            font-family: 'Dancing Script', cursive;
+            box-shadow: 0 0 20px rgba(233, 30, 99, 0.5);
+        }
+
+        #center-heart {
+            display: none;
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 180px;
+            z-index: 100;
+            filter: drop-shadow(0 0 20px #ff0077);
+        }
+
+        .heart-emerge {
+            display: block !important;
+            animation: growAndPulse 2s forwards;
+        }
+
+        @keyframes growAndPulse {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        #final-text {
+            display: none;
+            position: fixed;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff4d4d;
+            z-index: 102;
+            width: 100%;
+        }
+
+        .fade-in-text {
+            display: block !important;
+            animation: fadeIn 2.5s forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .heart-animation {
+            position: fixed;
+            font-size: 2.5em;
+            pointer-events: none;
+            z-index: 101;
+            animation: flyOut 2s ease-out forwards;
+        }
+
+        @keyframes flyOut {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(2.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="fireworksCanvas"></canvas>
+
+    <div id="countdown-container">
+        <p>💖Um momento especial te espera...</p>
+        <div id="countdown"></div>
+    </div>
+
+    <div id="reveal-message">
+        <h1>Feliz Ano Novo,💖Minha Esposa!</h1>
+        <p>
+            My dear 💖VANESSA💖,<br><br>
+            Enquanto o mundo celebra um novo começo, meu único pensamento é você. Dizem que o lar é onde o coração está, e o meu está a milhares de quilômetros de distância, seguro em suas mãos. Essa distância é apenas um teste de até onde o amor pode viajar, e todos os dias você me prova que vale cada segundo da espera.<br><br>
+            Toda vez que fecho os olhos, não estou aqui; estou com você, sentindo sua presença e ouvindo sua voz. Você não é apenas parte da minha vida; você é a alma dela. A forma como você me faz sorrir mesmo nos meus dias mais difíceis — é uma magia que eu nunca soube que existia antes de te conhecer.<br><br>
+            Me pego contando os dias não apenas para o Ano Novo, mas para o momento em que finalmente poderei te abraçar e nunca mais precisar soltar. Você é minha luz, minha paz e minha maior aventura.<br><br>
+            Esta noite, quando o relógio marcar meia-noite, feche os olhos e sinta o ar ao seu redor. Sou eu, te enviando todo o meu amor, meu calor e uma promessa: em breve, não haverá mais telas entre nós. Chega de “boa noite” pelo telefone. Apenas você e eu, exatamente onde pertencemos.<br><br>
+            Você é o meu hoje, o meu amanhã e o meu para sempre.<br><br>
+            Eu te amo mais do que palavras podem dizer.
+        </p>
+        <p>Com todo o meu coração,<br>Seu noivo💖</p>
+        <button id="midnight-kiss-btn">Clique aqui!</button>
+    </div>
+
+    <div id="center-heart">❤️</div>
+    <div id="final-text">💖Eu te amo para sempre💖</div>
+
+    <audio id="reveal-audio" src="audio12.mp3" preload="auto" loop></audio>
+
+    <script>
+        const TARGET_DATE = new Date("Jan 1, 2026 00:00:00");
+        const fireworksCanvas = document.getElementById('fireworksCanvas');
+        const countdownContainer = document.getElementById('countdown-container');
+        const countdownDisplay = document.getElementById('countdown');
+        const revealMessage = document.getElementById('reveal-message');
+        const midnightKissBtn = document.getElementById('midnight-kiss-btn');
+        const revealAudio = document.getElementById('reveal-audio');
+        const fireworksCtx = fireworksCanvas.getContext('2d');
+
+        let isMidnight = false;
+        let audioUnlocked = false;
+
+        // --- AUDIO UNLOCKER ---
+        // Music will play the moment she clicks/touches anywhere to see the timer
+        function startAudio() {
+            if (!audioUnlocked) {
+                revealAudio.play().then(() => {
+                    audioUnlocked = true;
+                }).catch(e => console.log("Waiting for interaction..."));
+            }
+        }
+
+        window.addEventListener('mousedown', startAudio);
+        window.addEventListener('touchstart', startAudio);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = TARGET_DATE - now;
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                isMidnight = true;
+                handleMidnightReveal();
+                return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            countdownDisplay.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function handleMidnightReveal() {
+            countdownContainer.style.opacity = '0';
+            setTimeout(() => {
+                countdownContainer.style.display = 'none';
+                revealMessage.style.display = 'block';
+                document.body.style.overflowY = 'auto'; 
+                setTimeout(() => revealMessage.classList.add('active'), 50);
+                startFireworks();
+            }, 1000);
+        }
+
+        midnightKissBtn.addEventListener('click', () => {
+            startAudio(); 
+            revealMessage.classList.add('fade-out');
+            
+            setTimeout(() => {
+                revealMessage.style.display = 'none';
+                document.body.style.overflow = 'hidden'; 
+                document.getElementById('center-heart').classList.add('heart-emerge');
+
+                for(let i = 0; i < 40; i++) {
+                    setTimeout(() => {
+                        const kiss = document.createElement('div');
+                        kiss.classList.add('heart-animation');
+                        kiss.innerHTML = (Math.random() > 0.5) ? '💋' : '💖';
+                        kiss.style.left = '50%';
+                        kiss.style.top = '50%';
+                        kiss.style.setProperty('--x', (Math.random() - 0.5) * 800 + 'px');
+                        kiss.style.setProperty('--y', (Math.random() - 0.5) * 800 + 'px');
+                        document.body.appendChild(kiss);
+                        setTimeout(() => kiss.remove(), 2000);
+                    }, i * 50);
+                }
+
+                setTimeout(() => {
+                    document.getElementById('final-text').classList.add('fade-in-text');
+                }, 1500);
+            }, 1000);
+        });
+
+        let particles = [];
+        function startFireworks() {
+            fireworksCanvas.width = window.innerWidth;
+            fireworksCanvas.height = window.innerHeight;
+            setInterval(() => {
+                const x = Math.random() * fireworksCanvas.width;
+                const y = Math.random() * fireworksCanvas.height * 0.5;
+                const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                for (let i = 0; i < 30; i++) {
+                    particles.push({
+                        x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8,
+                        alpha: 1, color
+                    });
+                }
+            }, 600);
+            updateFireworks();
+        }
+
+        function updateFireworks() {
+            fireworksCtx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy; p.alpha -= 0.01;
+                if (p.alpha <= 0) particles.splice(i, 1);
+                fireworksCtx.fillStyle = p.color;
+                fireworksCtx.globalAlpha = p.alpha;
+                fireworksCtx.beginPath();
+                fireworksCtx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                fireworksCtx.fill();
+            });
+            requestAnimationFrame(updateFireworks);
+        }
+    </script>
+</body>
+</html>
